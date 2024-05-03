@@ -29,7 +29,7 @@ extern unichar ISO8601UnparserDefaultTimeSeparatorCharacter;
 - (NSString *)ISO8601WeekDateStringWithTimeSeparator:(unichar)timeSep;
 - (NSString *)ISO8601OrdinalDateStringWithTimeSeparator:(unichar)timeSep;
 
-//includeTime: NO.
+//includeTime: YES.
 - (NSString *)ISO8601DateString;
 - (NSString *)ISO8601WeekDateString;
 - (NSString *)ISO8601OrdinalDateString;

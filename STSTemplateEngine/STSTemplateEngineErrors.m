@@ -50,7 +50,10 @@ const NSRange kZeroRange = { 0, 0 };
 } // end method
 
 // private method: deallocate instance
- // end method
+- (void)dealloc {
+    [self->literal release];
+	[super dealloc];
+} // end method
 
 // ---------------------------------------------------------------------------
 // Class Method:  error:inLine:atToken:
@@ -68,7 +71,7 @@ const NSRange kZeroRange = { 0, 0 };
 			inLine:(unsigned)line 
 		   atToken:(enum TEToken)token
 {
-	TEError *thisInstance = [[TEError alloc] init];
+	TEError *thisInstance = [[[TEError alloc] init] autorelease];
 	NSException *exception;
 	
 	// initialise instance variables
@@ -259,6 +262,7 @@ const NSRange kZeroRange = { 0, 0 };
 - (void)setLiteral:(NSString *)literalString
 {
     literalString = [literalString copy];
+    [self->literal release];
 	self->literal = literalString;
 } // end method
 
@@ -659,7 +663,7 @@ const NSRange kZeroRange = { 0, 0 };
 			severity = @"*WARNING*";
 			break;
 		case TE_ERROR :
-			severity = @"*ERROR*";
+			severity =@"*ERROR*";
 			break;
 		case TE_FATAL :
 			severity = @"*FATAL ERROR*";

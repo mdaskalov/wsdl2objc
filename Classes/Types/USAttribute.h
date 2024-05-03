@@ -23,21 +23,22 @@
 #import <Foundation/Foundation.h>
 #import "USType.h"
 
-@interface USAttribute : NSObject {
+@interface USAttribute: NSObject {
 	NSString *name;
 	NSString *wsdlName;
 	NSString *attributeDefault;
-	USSchema *__strong schema;
-	USType   *__strong type;
+	USSchema *schema;
+	USType   *type;
 }
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) NSString *wsdlName;
+@property (nonatomic, retain) NSString *wsdlName;
 @property (nonatomic, copy) NSString *attributeDefault;
-@property (nonatomic, strong) USSchema * schema;
-@property (nonatomic, strong) USType * type;
+@property (nonatomic, assign) USSchema * schema;
+@property (nonatomic, assign) USType * type;
 
 - (id)init;
+- (void)dealloc;
 
 - (NSDictionary *)templateKeyDictionary;
 

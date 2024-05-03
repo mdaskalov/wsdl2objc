@@ -36,10 +36,8 @@
 @synthesize hasBeenParsed;
 @synthesize hasBeenWritten;
 
-- (id)init
-{
-	if((self = [super init]))
-	{
+- (id)init {
+	if ((self = [super init])) {
 		self.typeName = @"";
 		self.schema = nil;
 		self.behavior = TypeBehavior_uninitialized;
@@ -56,32 +54,36 @@
 	return self;
 }
 
+- (void) dealloc {
+    [typeName release];
+    [representationClass release];
+    [enumerationValues release];
+    [superClass release];
+    [sequenceElements release];
+    [attributes release];
+    [super dealloc];
+}
 
-- (BOOL)isSimpleType
-{
+- (BOOL)isSimpleType {
 	return (self.behavior == TypeBehavior_simple);
 }
 
-- (BOOL)isComplexType
-{
+- (BOOL)isComplexType {
 	return (self.behavior == TypeBehavior_complex);
 }
 
-- (NSString *)isSimpleTypeString
-{
+- (NSString *)isSimpleTypeString {
 	return [self isSimpleType] ? @"true" : @"false";
 }
 
-- (NSString *)isComplexTypeString
-{
+- (NSString *)isComplexTypeString {
 	return [self isComplexType] ? @"true" : @"false";
 }
 
-- (NSString *)className
-{
+- (NSString *)className {
 	
-	if([schema prefix] != nil) {
-		if(self.behavior == TypeBehavior_simple && [self.representationClass length] > 0 && [self.enumerationValues count] == 0) {
+	if ([schema prefix] != nil) {
+		if (self.behavior == TypeBehavior_simple && [self.representationClass length] > 0 && [self.enumerationValues count] == 0) {
 			return self.representationClass;
 		}
 		return [NSString stringWithFormat:@"%@_%@", [schema prefix], [[self.typeName componentsSeparatedByCharactersInSet:kIllegalClassCharactersSet] componentsJoinedByString:@""]];
@@ -90,26 +92,23 @@
 	return [[self.typeName componentsSeparatedByCharactersInSet:kIllegalClassCharactersSet] componentsJoinedByString:@""];
 }
 
-- (NSString *)classNameWithPtr
-{
-	if([self isSimpleType]) {
+- (NSString *)classNameWithPtr {
+	if ([self isSimpleType]) {
 		return [self className];
-	} else if([self isComplexType]) {
+	} else if ([self isComplexType]) {
 		return [NSString stringWithFormat:@"%@ *", [self className]];
 	}
 	
 	return self.typeName;
 }
 
-- (NSString *)classNameWithoutPtr
-{
+- (NSString *)classNameWithoutPtr {
 	return [[self className] stringByReplacingOccurrencesOfString:@" *" withString:@""];
 }
 
-- (NSString *)assignOrRetain
-{
-	if(self.behavior == TypeBehavior_simple) {
-		if([[self classNameWithPtr] rangeOfString:@"*" options:NSLiteralSearch].location == NSNotFound) {
+- (NSString *)assignOrRetain {
+	if (self.behavior == TypeBehavior_simple) {
+		if ([[self classNameWithPtr] rangeOfString:@"*" options:NSLiteralSearch].location == NSNotFound) {
 			return @"assign";
 		}
 	}
@@ -117,13 +116,11 @@
 	return @"retain";
 }
 
-- (NSString *)enumCount
-{
+- (NSString *)enumCount {
 	return [[NSNumber numberWithUnsignedInt:[self.enumerationValues count]] stringValue];
 }
 
-- (NSString *)templateFileHPath
-{
+- (NSString *)templateFileHPath {
 	switch (self.behavior) {
 		case TypeBehavior_simple:
 			return [[NSBundle mainBundle] pathForTemplateNamed:@"SimpleType_H"];
@@ -137,8 +134,7 @@
 	}
 }
 
-- (NSString *)templateFileMPath
-{
+- (NSString *)templateFileMPath {
 	switch (self.behavior) {
 		case TypeBehavior_simple:
 			return [[NSBundle mainBundle] pathForTemplateNamed:@"SimpleType_M"];
@@ -153,8 +149,7 @@
 	}
 }
 
-- (NSDictionary *)templateKeyDictionary
-{
+- (NSDictionary *)templateKeyDictionary {
 	NSMutableDictionary *returning = [NSMutableDictionary dictionary];
 	[returning setObject:[self className] forKey:@"className"];
 	[returning setObject:schema forKey:@"schema"];
@@ -173,7 +168,7 @@
 			break;
 			
 		case TypeBehavior_complex:
-			if(superClass != nil) {
+			if (superClass != nil) {
 				[returning setObject:superClass forKey:@"superClass"];
 				[returning setObject:([superClass isComplexType] ? @"true" : @"false") forKey:@"superClassIsComplex"];
 				USType *tempParent = superClass;

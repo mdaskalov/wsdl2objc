@@ -21,21 +21,21 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "USType.h"
 
+@class USType;
 @interface USSequenceElement : NSObject <NSCopying> {
 	NSInteger minOccurs;
 	NSInteger maxOccurs;
 	NSString *name;
 	NSString *wsdlName;
-	USType * __strong type;
+	USType * type;
 }
 
 @property (nonatomic) NSInteger minOccurs; /* -1 represents 'unbounded' */
 @property (nonatomic) NSInteger maxOccurs; /* -1 represents 'unbounded' */
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) NSString *wsdlName;
-@property (nonatomic, strong) USType * type;
+@property (nonatomic, retain) NSString *wsdlName;
+@property (nonatomic, assign) USType * type;
 
 - (NSString *)uname;
 - (NSString *)useAnArray;

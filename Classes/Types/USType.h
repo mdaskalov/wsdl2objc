@@ -36,7 +36,7 @@ typedef enum {
 	
 #pragma mark Global type fields
 	NSString *typeName;
-	USSchema *__strong schema;
+	USSchema *schema;
 	TypeBehavior behavior;
 	BOOL hasBeenParsed;
 	BOOL hasBeenWritten;
@@ -67,7 +67,7 @@ typedef enum {
 - (NSString *)assignOrRetain;
 
 @property (nonatomic, copy) NSString *typeName;
-@property (nonatomic, strong) USSchema *schema;
+@property (nonatomic, assign) USSchema *schema;
 @property (nonatomic) TypeBehavior behavior;
 @property (nonatomic) BOOL hasBeenParsed;
 @property (nonatomic) BOOL hasBeenWritten;
@@ -80,16 +80,16 @@ typedef enum {
 
 #pragma mark Simple type methods
 @property (nonatomic, copy) NSString *representationClass;
-@property (nonatomic, strong) NSMutableArray *enumerationValues;
+@property (nonatomic, retain) NSMutableArray *enumerationValues;
 
 - (NSString *)enumCount;
 
 
 
 #pragma mark Complex type methods
-@property (nonatomic, strong) USType *superClass;
-@property (nonatomic, strong) NSMutableArray *sequenceElements;
-@property (nonatomic, strong) NSMutableArray *attributes;
+@property (nonatomic, retain) USType *superClass;
+@property (nonatomic, retain) NSMutableArray *sequenceElements;
+@property (nonatomic, retain) NSMutableArray *attributes;
 
 @end
 

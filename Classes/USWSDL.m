@@ -33,21 +33,23 @@
 @synthesize schemas;
 @synthesize targetNamespace;
 
-- (id)init
-{
-	if((self = [super init]))
-	{
+- (id)init {
+	if ((self = [super init])) {
 		self.schemas = [NSMutableArray array];
 		self.targetNamespace = nil;
 	}
 	return self;
 }
 
+- (void)dealloc {
+	[schemas release];
+    [targetNamespace release];
+	[super dealloc];
+}
 
-- (USSchema *)schemaForNamespace:(NSString *)aNamespace
-{
-	for(USSchema *schema in self.schemas) {
-		if([schema.fullName isEqualToString:aNamespace]) {
+- (USSchema *)schemaForNamespace:(NSString *)aNamespace {
+	for (USSchema *schema in self.schemas) {
+		if ([schema.fullName isEqualToString:aNamespace]) {
 			return schema;
 		}
 	}
@@ -55,16 +57,16 @@
 	USSchema *newSchema = [[USSchema alloc] initWithWSDL:self];
 	newSchema.fullName = aNamespace;
 	[self.schemas addObject:newSchema];
+    [newSchema release];
 	
 	return newSchema;
 }
 
-- (USSchema *)existingSchemaForPrefix:(NSString *)aPrefix
-{
-	if(aPrefix == nil) return nil;
+- (USSchema *)existingSchemaForPrefix:(NSString *)aPrefix {
+	if (aPrefix == nil) return nil;
 	
-	for(USSchema *schema in self.schemas) {
-		if([schema.prefix isEqualToString:aPrefix]) {
+	for (USSchema *schema in self.schemas) {
+		if ([schema.prefix isEqualToString:aPrefix]) {
 			return schema;
 		}
 	}
@@ -72,11 +74,10 @@
 	return nil;
 }
 
-- (USType *)typeForNamespace:(NSString *)aNamespace name:(NSString *)aName
-{
+- (USType *)typeForNamespace:(NSString *)aNamespace name:(NSString *)aName {
 	USSchema *schema = [self schemaForNamespace:aNamespace];
 	
-	if(schema) {
+	if (schema) {
 		USType *type = [schema typeForName:aName];
 		return type;
 	}
@@ -84,8 +85,7 @@
 	return nil;
 }
 
-- (void)addXSDSchema
-{
+- (void)addXSDSchema {
 	USSchema *xsd = [self schemaForNamespace:@"http://www.w3.org/2001/XMLSchema"];
 	xsd.prefix = @"xsd";
 	
@@ -108,8 +108,7 @@
 	[xsd addSimpleClassWithName:@"time" representationClass:@"NSDate *"];
 	[xsd addSimpleClassWithName:@"duration" representationClass:@"NSDate *"];
 	[xsd addSimpleClassWithName:@"base64Binary" representationClass:@"NSData *"];
-    // don't use NSDecimalNumber class - too many issues
-	[xsd addSimpleClassWithName:@"decimal" representationClass:@"NSNumber *"];
+	[xsd addSimpleClassWithName:@"decimal" representationClass:@"NSDecimalNumber *"];
 	[xsd addSimpleClassWithName:@"QName" representationClass:@"NSString *"];
 	[xsd addSimpleClassWithName:@"anyURI" representationClass:@"NSString *"];
 	[xsd addSimpleClassWithName:@"string" representationClass:@"NSString *"];

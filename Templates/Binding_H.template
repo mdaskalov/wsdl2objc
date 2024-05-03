@@ -3,11 +3,11 @@
 
 @protocol %«className»ResponseDelegate <NSObject>
 - (void) operation:(%«className»Operation *)operation completedWithResponse:(%«className»Response *)response;
-@optional
-- (void) operation:(%«className»Operation *)operation sentSOAPRequest:(NSString *)request;
-- (void) operation:(%«className»Operation *)operation receivedSOAPResponse:(NSString *)response;
-
 @end
+
+#if NS_BLOCKS_AVAILABLE
+typedef void (^%«className»OperationBlock)(id operation, %«className»Response *response);
+#endif
 
 #define kServerAnchorCertificates   @"kServerAnchorCertificates"
 #define kServerAnchorsOnly          @"kServerAnchorsOnly"
@@ -17,6 +17,11 @@
 #define kClientPassword             @"kClientPassword"
 #define kNSURLCredentialPersistence @"kNSURLCredentialPersistence"
 #define kValidateResult             @"kValidateResult"
+
+%FOREACH operation in operations
+@class %«className»_%«operation.className»;
+%ENDFOR
+
 
 @interface %«className» : NSObject <%«className»ResponseDelegate> {
 	NSURL *address;
@@ -48,7 +53,12 @@
 
 %FOREACH operation in operations
 - (%«className»Response *)%«operation.invokeString»;
-- (void)%«operation.asyncInvokeString» delegate:(id<%«className»ResponseDelegate>)responseDelegate;
+- (%«className»_%«operation.className» *)%«operation.asyncInvokeString» delegate:(id<%«className»ResponseDelegate>)responseDelegate;
+
+#if NS_BLOCKS_AVAILABLE
+- (%«className»_%«operation.className»*)%«operation.asyncInvokeString» completionBlock:(%«className»OperationBlock)responseCompletionBlock;
+#endif
+
 %ENDFOR
 
 @end
@@ -56,20 +66,34 @@
 @interface %«className»Operation : NSOperation {
 	%«className» *binding;
 	%«className»Response *response;
+	
+
 	id<%«className»ResponseDelegate> delegate;
+
 	NSMutableData *responseData;
 	NSURLConnection *urlConnection;
+	
+	
+#if NS_BLOCKS_AVAILABLE
+	//block to execute when request completes successfully
+	%«className»OperationBlock completionBlock;
+#endif
 }
 
 @property (nonatomic, retain) %«className» *binding;
 @property (nonatomic, readonly) %«className»Response *response;
 @property (nonatomic, assign) id<%«className»ResponseDelegate> delegate;
+
 @property (nonatomic, retain) NSMutableData *responseData;
 @property (nonatomic, retain) NSURLConnection *urlConnection;
 
 - (id)initWithBinding:(%«className» *)aBinding delegate:(id<%«className»ResponseDelegate>)aDelegate;
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
 
+#if NS_BLOCKS_AVAILABLE
+@property (nonatomic, copy, setter=setCompletionBlock:) %«className»OperationBlock completionBlock;
+
+- (id)initWithBinding:(%«className» *)aBinding completionBlock:(%«className»OperationBlock)responseCompletionBlock;
+#endif
 @end
 
 %FOREACH operation in operations
@@ -102,6 +126,17 @@
 %ENDFOR
 ;
 
+
+#if NS_BLOCKS_AVAILABLE
+- (id)initWithBinding:(%«className» *)aBinding completionBlock:(%«className»OperationBlock)responseCompletionBlock
+%FOREACH part in operation.input.body.parts
+	%«part.name»:(%«part.element.type.classNameWithPtr»)a%«part.uname»
+%ENDFOR
+%FOREACH header in operation.input.headers
+	%«header.name»:(%«header.type.classNameWithPtr»)a%«header.uname»
+%ENDFOR
+;
+#endif
 @end
 %ENDFOR
 
@@ -112,7 +147,6 @@
 + (%«className»_envelope *)sharedInstance;
 
 - (NSString *)serializedFormUsingHeaderElements:(NSDictionary *)headerElements bodyElements:(NSDictionary *)bodyElements bodyKeys:(NSArray *)bodyKeys;
-
 @end
 
 @interface %«className»Response : NSObject {

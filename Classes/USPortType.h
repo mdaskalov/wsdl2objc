@@ -29,12 +29,12 @@
 	NSString *name;
 	NSMutableArray *operations;
 	
-	USSchema *__strong schema;
+	USSchema *schema;
 }
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) NSMutableArray *operations;
-@property (nonatomic, strong) USSchema *schema;
+@property (nonatomic, retain) NSMutableArray *operations;
+@property (nonatomic, assign) USSchema *schema;
 
 - (USOperation *)operationForName:(NSString *)aName;
 
