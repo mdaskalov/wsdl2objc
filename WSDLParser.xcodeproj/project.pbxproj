@@ -167,8 +167,8 @@
 		62D266800E6371F900AD9FC9 /* Sunrise Telephone Systems.webloc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sunrise Telephone Systems.webloc"; sourceTree = "<group>"; };
 		62E6332B0E676DF40072DBDD /* USElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USElement.h; sourceTree = "<group>"; };
 		62E6332C0E676DF40072DBDD /* USElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USElement.m; sourceTree = "<group>"; };
-		62FF1EF80E883B8A006D6377 /* USGlobals_H.template */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; includeInIndex = 0; name = USGlobals_H.template; path = ../USGlobals_H.template; sourceTree = "<group>"; usesTabs = 1; };
-		62FF1F010E883C22006D6377 /* USGlobals_M.template */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; includeInIndex = 0; name = USGlobals_M.template; path = ../USGlobals_M.template; sourceTree = "<group>"; usesTabs = 1; };
+		62FF1EF80E883B8A006D6377 /* USGlobals_H.template */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; includeInIndex = 0; path = USGlobals_H.template; sourceTree = "<group>"; usesTabs = 1; };
+		62FF1F010E883C22006D6377 /* USGlobals_M.template */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; includeInIndex = 0; path = USGlobals_M.template; sourceTree = "<group>"; usesTabs = 1; };
 		62FF20A80E8847FD006D6377 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
 		B93FECA60DF76C5A00145322 /* USAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USAttribute.h; sourceTree = "<group>"; };
 		B93FECA70DF76C5A00145322 /* USAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USAttribute.m; sourceTree = "<group>"; };
@@ -312,33 +312,17 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
-		6222413F0E7722A7005D3D36 /* NSDate_ISO8601 */ = {
-			isa = PBXGroup;
-			children = (
-				62BF42030E72073F00FA8190 /* NSDate+ISO8601Parsing_H.template */,
-				62BF42040E72073F00FA8190 /* NSDate+ISO8601Parsing_M.template */,
-				62BF42050E72073F00FA8190 /* NSDate+ISO8601Unparsing_H.template */,
-				62BF42060E72073F00FA8190 /* NSDate+ISO8601Unparsing_M.template */,
-			);
-			path = NSDate_ISO8601;
-			sourceTree = "<group>";
-		};
-		622241410E7722D4005D3D36 /* WSDL2ObjC Standard Additions */ = {
+		6235ECF60E6386D200DABBD6 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
 				62FF1EF80E883B8A006D6377 /* USGlobals_H.template */,
 				62FF1F010E883C22006D6377 /* USGlobals_M.template */,
 				62BF41B20E72004900FA8190 /* USAdditions_H.template */,
 				62BF41B30E72004900FA8190 /* USAdditions_M.template */,
-			);
-			path = "WSDL2ObjC Standard Additions";
-			sourceTree = "<group>";
-		};
-		6235ECF60E6386D200DABBD6 /* Templates */ = {
-			isa = PBXGroup;
-			children = (
-				622241410E7722D4005D3D36 /* WSDL2ObjC Standard Additions */,
-				6222413F0E7722A7005D3D36 /* NSDate_ISO8601 */,
+				62BF42030E72073F00FA8190 /* NSDate+ISO8601Parsing_H.template */,
+				62BF42040E72073F00FA8190 /* NSDate+ISO8601Parsing_M.template */,
+				62BF42050E72073F00FA8190 /* NSDate+ISO8601Unparsing_H.template */,
+				62BF42060E72073F00FA8190 /* NSDate+ISO8601Unparsing_M.template */,
 				62BFB2240E648CE100E19E18 /* Schema_H.template */,
 				62BFB2250E648CE900E19E18 /* Schema_M.template */,
 				6235F00A0E63954100DABBD6 /* ComplexType_H.template */,
