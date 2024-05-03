@@ -3,6 +3,9 @@
 
 @protocol %«className»ResponseDelegate <NSObject>
 - (void) operation:(%«className»Operation *)operation completedWithResponse:(%«className»Response *)response;
+@optional
+- (void) operation:(%«className»Operation *)operation sentSOAPRequest:(NSString *)request;
+- (void) operation:(%«className»Operation *)operation receivedSOAPResponse:(NSString *)response;
 @end
 
 #if NS_BLOCKS_AVAILABLE
@@ -66,14 +69,14 @@ typedef void (^%«className»OperationBlock)(id operation, %«className»Respons
 @interface %«className»Operation : NSOperation {
 	%«className» *binding;
 	%«className»Response *response;
-	
+
 
 	id<%«className»ResponseDelegate> delegate;
 
 	NSMutableData *responseData;
 	NSURLConnection *urlConnection;
-	
-	
+
+
 #if NS_BLOCKS_AVAILABLE
 	//block to execute when request completes successfully
 	%«className»OperationBlock completionBlock;
