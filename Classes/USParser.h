@@ -37,6 +37,7 @@ NSLog(@"%s[%d] >> " __NSSTRING, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__ )
 }
 
 - (id)initWithURL:(NSURL *)anURL;
+- (void)dealloc;
 - (USWSDL*)parse;
 
 - (void)processDefinitionsElement:(NSXMLElement *)el wsdl:(USWSDL *)wsdl;

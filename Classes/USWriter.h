@@ -21,16 +21,16 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "USWSDL.h"
 
 
+@class USWSDL;
 @interface USWriter : NSObject {
 	USWSDL *wsdl;
 	NSURL *outDir;
 }
 
 @property (nonatomic, copy) NSURL *outDir;
-@property (nonatomic, strong) USWSDL *wsdl;
+@property (nonatomic, retain) USWSDL *wsdl;
 
 - (id)initWithWSDL:(USWSDL *)aWsdl outputDirectory:(NSURL *)anOutDir;
 

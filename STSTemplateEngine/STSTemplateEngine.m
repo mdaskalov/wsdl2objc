@@ -204,7 +204,7 @@ BOOL classExists (NSString *className) {
 	// use MacOS Roman hex codes for percent and opening chevrons "%«"
 	char octets[2] = { 0x25, 0xc7 };
 	data = [NSData dataWithBytes:&octets length:2];
-	return [[NSString alloc] initWithData:data encoding:NSMacOSRomanStringEncoding];
+	return [[[NSString alloc] initWithData:data encoding:NSMacOSRomanStringEncoding] autorelease];
 } // end method
 
 // ---------------------------------------------------------------------------
@@ -221,7 +221,7 @@ BOOL classExists (NSString *className) {
 	// use MacOS Roman hex code for closing chevrons "»"
 	char octet = 0xc8;
 	data = [NSData dataWithBytes:&octet length:1];
-	return [[NSString alloc] initWithData:data encoding:NSMacOSRomanStringEncoding];
+	return [[[NSString alloc] initWithData:data encoding:NSMacOSRomanStringEncoding] autorelease];
 } // end method
 
 // ---------------------------------------------------------------------------
@@ -404,12 +404,14 @@ BOOL classExists (NSString *className) {
 } // end method
 
 // private method: deallocate instance
- // end method
+- (void)dealloc {
+	[super dealloc];
+} // end method
 
 // public method: return new flags, allocated, initialised and autoreleased.
 // initial values: consumed is false, expand is true, condex is false.
 + (TEFlags *)flags {
-	TEFlags *thisInstance = [[TEFlags alloc] init];
+	TEFlags *thisInstance = [[[TEFlags alloc] init] autorelease];
 	// initialise flags
 	thisInstance->consumed = false;
 	thisInstance->expand = true;
@@ -1461,6 +1463,7 @@ BOOL classExists (NSString *className) {
 						}
 						[_dictionary removeObjectForKey:varName];
 						
+						[innerString release];
 						innerString = nil;
 					}
 					else {
@@ -1751,8 +1754,8 @@ BOOL classExists (NSString *className) {
 	else {
 		// use alternative method before MacOS X 10.4
 		templateData = [NSData dataWithContentsOfFile:path]; // path must be absolute
-		templateString = [[NSString alloc] initWithData:templateData encoding:enc];
-		if (false) { // how the heck do we know there was no encoding error?
+		templateString = [[[NSString alloc] initWithData:templateData encoding:enc] autorelease];
+        if (/* DISABLES CODE */ (false)) { // how the heck do we know there was no encoding error?
 			// create error description - encoding error
 			error = [TEError error:TE_TEMPLATE_ENCODING_ERROR inLine:0 atToken:TE_PATH];
 			[error setLiteral:path];

@@ -30,12 +30,12 @@
 	USBinding *binding;
 	NSString *address;
 	
-	USService *__strong service;
+	USService *service;
 }
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) USBinding *binding;
+@property (nonatomic, retain) USBinding *binding;
 @property (nonatomic, copy) NSString *address;
-@property (nonatomic, strong) USService *service;
+@property (nonatomic, assign) USService *service;
 
 @end
