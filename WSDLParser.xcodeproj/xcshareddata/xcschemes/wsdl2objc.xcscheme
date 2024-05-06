@@ -50,6 +50,28 @@
             ReferencedContainer = "container:WSDLParser.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-usePrefix YES"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-templateDirectory /Users/milko.daskalov/dev/repos/wsdl2objc/Templates"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-outPath /Users/milko.daskalov/dev/repos/ETP/Sources/ETP"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-wsdlPath https://www.mpay24.com/soap/etp/1.5/ETP.wsdl"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-writeDebug YES"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
