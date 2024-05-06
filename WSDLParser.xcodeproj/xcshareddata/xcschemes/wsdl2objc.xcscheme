@@ -56,11 +56,11 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-templateDirectory /Users/milko.daskalov/dev/wsdl2objc/Templates"
+            argument = "-templateDirectory /Users/milko.daskalov/dev/repos/wsdl2objc/Templates"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-outPath /Users/milko.daskalov/dev/wsdl2objc/SOAP"
+            argument = "-outPath /Users/milko.daskalov/dev/repos/ETP/Sources/ETP"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
