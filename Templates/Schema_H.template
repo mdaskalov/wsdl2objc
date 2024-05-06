@@ -1,9 +1,11 @@
 #import <Foundation/Foundation.h>
-#import "USAdditions.h"
 #import <libxml/tree.h>
 #import <libxml/xmlsave.h>
-#import "USGlobals.h"
 #import <objc/runtime.h>
+#import "USGlobals.h"
+#import "USAdditions.h"
+#import "NSDate+ISO8601Parsing.h"
+#import "NSDate+ISO8601Unparsing.h"
 
 %FOREACH type in types
 %IFEQ type.assignOrRetain retain
